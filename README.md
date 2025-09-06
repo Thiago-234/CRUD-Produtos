@@ -25,13 +25,10 @@
 ## 🌟 Características
 
 - ✅ **CRUD Completo** - Criar, Ler, Atualizar e Deletar produtos
-- 🎨 **Interface Moderna** - Design responsivo com Styled Components
 - 🔄 **Atualizações em Tempo Real** - Interface atualizada automaticamente
-- 📱 **Responsivo** - Funciona perfeitamente em desktop e mobile
 - 🛡️ **Validações** - Validação de dados no frontend e backend
 - 🚀 **Performance** - Carregamento rápido e eficiente
 - 🎯 **UX Intuitiva** - Interface amigável e fácil de usar
-- 💾 **Persistência** - Dados salvos em banco MySQL
 
 ## 🚀 Instalação
 
@@ -48,7 +45,7 @@ Antes de começar, certifique-se de ter instalado:
 1. **Clone o repositório**
 ```bash
 https://github.com/Thiago-234/CRUD-Produtos.git
-cd CRUD_Produtos
+cd CRUD-Produtos
 ```
 
 2. **Configure o Banco de Dados**
@@ -99,38 +96,17 @@ npm install
 ```bash
 cd api
 npm start
-# ✅ Servidor rodando na porta 8800
-# ✅ Conectado ao banco de dados MySQL!
 ```
 
 2. **Inicie o Frontend** (Terminal 2)
 ```bash
 cd frontend
 npm start
-# ✅ Aplicação rodando em http://localhost:3000
 ```
 
 3. **Acesse a aplicação**
    - Abra seu navegador
    - Vá para: `http://localhost:3000`
-
-### Funcionalidades
-
-#### 📝 Cadastrar Produto
-1. Preencha todos os campos no formulário
-2. Clique em **"Salvar"**
-3. ✅ Produto cadastrado com sucesso!
-
-#### ✏️ Editar Produto
-1. Clique no ícone ✏️ na linha do produto
-2. Modifique os campos desejados
-3. Clique em **"Atualizar"**
-4. ✅ Produto atualizado com sucesso!
-
-#### 🗑️ Deletar Produto
-1. Clique no ícone 🗑️ na linha do produto
-2. Confirme a exclusão
-3. ✅ Produto deletado com sucesso!
 
 ## 🔌 API
 
@@ -160,27 +136,27 @@ npm start
 
 ```
 sistema-produtos/
-├── 📁 api/                    # Backend
-│   ├── 📁 controllers/        # Lógica de negócio
-│   │   └── produtos.js        # Controller dos produtos
-│   ├── 📁 routes/            # Rotas da API
-│   │   └── produtos.js        # Rotas dos produtos
-│   ├── db.js                 # Configuração do banco
-│   ├── index.js              # Servidor principal
-│   └── package.json          # Dependências do backend
+├── 📁 api/                   
+│   ├── 📁 controllers/        
+│   │   └── produtos.js        
+│   ├── 📁 routes/            
+│   │   └── produtos.js       
+│   ├── db.js                 
+│   ├── index.js              
+│   └── package.json         
 │
-├── 📁 frontend/              # Frontend
+├── 📁 frontend/            
 │   ├── 📁 src/
-│   │   ├── 📁 Components/    # Componentes React
-│   │   │   ├── Form.js       # Formulário de produtos
-│   │   │   └── Grid.js       # Tabela de produtos
-│   │   ├── 📁 Styles/        # Estilos globais
-│   │   │   └── global.js     # CSS global
-│   │   ├── App.js            # Componente principal
-│   │   └── index.js          # Ponto de entrada
-│   └── package.json          # Dependências do frontend
+│   │   ├── 📁 Components/    
+│   │   │   ├── Form.js     
+│   │   │   └── Grid.js      
+│   │   ├── 📁 Styles/        
+│   │   │   └── global.js     
+│   │   ├── App.js          
+│   │   └── index.js          
+│   └── package.json          
 │
-└── README.md                 # Este arquivo
+└── README.md                 
 ```
 
 ## 👨‍💻 Autor
