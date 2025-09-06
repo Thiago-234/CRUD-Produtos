@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# 🛍️ Sistema de Gerenciamento de Produtos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
-In the project directory, you can run:
+**Sistema para gerenciamento de produtos com CRUD funcional**
 
-### `npm start`
+[Características](#-características) •
+[Instalação](#-instalação) •
+[Como usar](#-como-usar) •
+[API](#-api) •
+[Tecnologias](#️-tecnologias) •
+[Estrutura do Projeto](#-estrutura-do-projeto) •
+[Autor](#-autor)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🌟 Características
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- ✅ **CRUD Completo** - Criar, Ler, Atualizar e Deletar produtos
+- 🎨 **Interface Moderna** - Design responsivo com Styled Components
+- 🔄 **Atualizações em Tempo Real** - Interface atualizada automaticamente
+- 📱 **Responsivo** - Funciona perfeitamente em desktop e mobile
+- 🛡️ **Validações** - Validação de dados no frontend e backend
+- 🚀 **Performance** - Carregamento rápido e eficiente
+- 🎯 **UX Intuitiva** - Interface amigável e fácil de usar
+- 💾 **Persistência** - Dados salvos em banco MySQL
 
-### `npm run build`
+## 🚀 Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Pré-requisitos
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Antes de começar, certifique-se de ter instalado:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Node.js](https://nodejs.org/) (versão 16 ou superior)
+- [MySQL](https://www.mysql.com/) (versão 8.0 ou superior)
+- [Git](https://git-scm.com/)
 
-### `npm run eject`
+### Passo a Passo
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone o repositório**
+```bash
+https://github.com/Thiago-234/CRUD-Produtos.git
+cd CRUD_Produtos
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Configure o Banco de Dados**
+```sql
+-- No MySQL Workbench ou terminal MySQL:
+CREATE DATABASE produtos;
+USE produtos;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+CREATE TABLE tb_produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    codigo_produto VARCHAR(100) NOT NULL UNIQUE,
+    quantidade INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. **Instale as dependências do Backend**
+```bash
+cd api
+npm install
+```
 
-## Learn More
+4. **Configure as variáveis do banco**
+```javascript
+// Em api/db.js - ajuste as credenciais se necessário
+export const db = mysql.createConnection({
+    host: "localhost",
+    user: "usuario_database",
+    password: "sua_senha",
+    database: "produtos"
+});
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. **Instale as dependências do Frontend**
+```bash
+cd ../frontend
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎯 Como Usar
 
-### Code Splitting
+### Iniciar o Sistema
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Inicie o Backend** (Terminal 1)
+```bash
+cd api
+npm start
+# ✅ Servidor rodando na porta 8800
+# ✅ Conectado ao banco de dados MySQL!
+```
 
-### Analyzing the Bundle Size
+2. **Inicie o Frontend** (Terminal 2)
+```bash
+cd frontend
+npm start
+# ✅ Aplicação rodando em http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. **Acesse a aplicação**
+   - Abra seu navegador
+   - Vá para: `http://localhost:3000`
 
-### Making a Progressive Web App
+### Funcionalidades
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### 📝 Cadastrar Produto
+1. Preencha todos os campos no formulário
+2. Clique em **"Salvar"**
+3. ✅ Produto cadastrado com sucesso!
 
-### Advanced Configuration
+#### ✏️ Editar Produto
+1. Clique no ícone ✏️ na linha do produto
+2. Modifique os campos desejados
+3. Clique em **"Atualizar"**
+4. ✅ Produto atualizado com sucesso!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### 🗑️ Deletar Produto
+1. Clique no ícone 🗑️ na linha do produto
+2. Confirme a exclusão
+3. ✅ Produto deletado com sucesso!
 
-### Deployment
+## 🔌 API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Endpoints
 
-### `npm run build` fails to minify
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/produtos` | Lista todos os produtos |
+| `POST` | `/produtos` | Cria um novo produto |
+| `PUT` | `/produtos/:codigo` | Atualiza um produto |
+| `DELETE` | `/produtos/:codigo` | Deleta um produto |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠️ Tecnologias
+
+### Frontend
+- **React** - Biblioteca para interfaces de usuário
+- **Styled Components** - CSS-in-JS para estilização
+- **Axios** - Cliente HTTP para APIs
+- **React Toastify** - Notificações elegantes
+- **React Icons** - Ícones vetoriais
+
+### Backend
+- **Node.js** - Runtime JavaScript
+- **Express.js** - Framework web minimalista
+
+## 📁 Estrutura do Projeto
+
+```
+sistema-produtos/
+├── 📁 api/                    # Backend
+│   ├── 📁 controllers/        # Lógica de negócio
+│   │   └── produtos.js        # Controller dos produtos
+│   ├── 📁 routes/            # Rotas da API
+│   │   └── produtos.js        # Rotas dos produtos
+│   ├── db.js                 # Configuração do banco
+│   ├── index.js              # Servidor principal
+│   └── package.json          # Dependências do backend
+│
+├── 📁 frontend/              # Frontend
+│   ├── 📁 src/
+│   │   ├── 📁 Components/    # Componentes React
+│   │   │   ├── Form.js       # Formulário de produtos
+│   │   │   └── Grid.js       # Tabela de produtos
+│   │   ├── 📁 Styles/        # Estilos globais
+│   │   │   └── global.js     # CSS global
+│   │   ├── App.js            # Componente principal
+│   │   └── index.js          # Ponto de entrada
+│   └── package.json          # Dependências do frontend
+│
+└── README.md                 # Este arquivo
+```
+
+## 👨‍💻 Autor
+**Desenvolvido por:**
+- GitHub: [@Thiago-234](https://github.com/Thiago-234)

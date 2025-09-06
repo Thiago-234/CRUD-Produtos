@@ -33,7 +33,7 @@ export const Th = styled.th`
 
 export const Td = styled.td`
   padding-top: 15px;
-  text-align: ${(props) => (props.alignCenter ? "center" : "start")};
+  text-align: start;
   width: ${(props) => (props.width ? props.width : "auto")};
 
   @media (max-width: 500px) {
@@ -41,47 +41,85 @@ export const Td = styled.td`
   }
 `;
 
+const IconButton = styled.div`
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+`;
+
+const EditIcon = styled(IconButton)`
+  color: #006effff;
+  
+  &:hover {
+    background-color: #e3f2fd;
+  }
+`;
+
+const DeleteIcon = styled(IconButton)`
+  color: #ff0000ff;
+  
+  &:hover {
+    background-color: #ffebee;
+  }
+`;
+
 const Grid = ({ produtos, setProdutos, setOnEdit }) => {
 
     const handleDelete = async (codigo) => {
-        await axios
-            .delete("http://localhost:8800/produtos/" + codigo)
-            .then(({ data }) => {
-                const newArray = produtos.filter((produto) => produto.codigo_produto !== codigo);
-                setProdutos(newArray);
-                toast.success(data);
-            })
-            .catch(({ data }) => toast.error(data));
-        setOnEdit(null);
+        try {
+            const response = await axios.delete(`http://localhost:8800/produtos/${codigo}`);
+            const newArray = produtos.filter((produto) => produto.codigo_produto !== codigo);
+            setProdutos(newArray);
+            toast.success(response.data);
+            setOnEdit(null);
+        } catch (err) {
+            const errorMessage = err.response?.data || "Erro ao deletar produto";
+            toast.error(errorMessage);
+        }
     };
 
     const handleEdit = (item) => {
         setOnEdit(item);
     }
 
-
     return (
         <Table>
             <Thead>
                 <Tr>
-                    <Td>Nome</Td>
-                    <Td>Preço</Td>
-                    <Td onlyWeb>Código</Td>
-                    <Td>Quantidade</Td>
+                    <Th>Nome</Th>
+                    <Th>Preço</Th>
+                    <Th onlyWeb>Código</Th>
+                    <Th>Quantidade</Th>
+                    <Th>Ações</Th>
                 </Tr>
             </Thead>
             <Tbody>
                 {produtos.map((item, i) => (
                     <Tr key={i}>
                         <Td width="30%">{item.nome}</Td>
-                        <Td width="20%">{item.preco}</Td>
+                        <Td width="20%">R$ {parseFloat(item.preco).toFixed(2)}</Td>
                         <Td onlyWeb width="20%">{item.codigo_produto}</Td>
-                        <Td width="20%">{item.quantidade}</Td>
-                        <Td alignCenter width="5%">
-                            <FaEdit onClick={() => handleEdit(item)} />
-                        </Td>
-                        <Td alignCenter width="5%">
-                            <FaTrash onClick={() => handleDelete(item.codigo_produto)} />
+                        <Td width="15%">{item.quantidade}</Td>
+                        <Td alignCenter width="15%">
+                            <EditIcon onClick={() => handleEdit(item)}>
+                                <FaEdit />
+                            </EditIcon>
+                            <DeleteIcon onClick={() => handleDelete(item.codigo_produto)}>
+                                <FaTrash />
+                            </DeleteIcon>
                         </Td>
                     </Tr>
                 ))}
@@ -90,4 +128,4 @@ const Grid = ({ produtos, setProdutos, setOnEdit }) => {
     )
 }
 
-export default Grid
+export default Grid;

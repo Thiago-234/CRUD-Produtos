@@ -69,21 +69,22 @@ const Form = ({ onEdit, setOnEdit, getProdutos }) => {
 
     const produtoData = {
       nome,
-      preco,
+      preco: parseFloat(preco),
       codigo_produto: codigo,
-      quantidade,
+      quantidade: parseInt(quantidade),
     };
+
+    console.log("Enviando dados:", produtoData);
 
     try {
       if (onEdit) {
         await axios.put(`http://localhost:8800/produtos/${onEdit.codigo_produto}`, produtoData);
         toast.success("Produto atualizado com sucesso!");
       } else {
-        await axios.post("http://localhost:8800", produtoData);
+        await axios.post("http://localhost:8800/produtos", produtoData);
         toast.success("Produto cadastrado com sucesso!");
       }
 
-      form.reset();
       setOnEdit(null);
       getProdutos();
     } catch (err) {
@@ -95,11 +96,11 @@ const Form = ({ onEdit, setOnEdit, getProdutos }) => {
     <FormContainer ref={formRef} onSubmit={handleSubmit}>
       <InputArea>
         <Label>Nome</Label>
-        <Input name="nome" />
+        <Input name="nome" type="text" />
       </InputArea>
       <InputArea>
         <Label>Preço</Label>
-        <Input name="preco" />
+        <Input name="preco" type="number" step="0.50" min="0.50" />
       </InputArea>
       <InputArea>
         <Label>Código do Produto</Label>
@@ -107,9 +108,11 @@ const Form = ({ onEdit, setOnEdit, getProdutos }) => {
       </InputArea>
       <InputArea>
         <Label>Quantidade</Label>
-        <Input name="quantidade" />
+        <Input name="quantidade" type="number" min="0" />
       </InputArea>
-      <Button type="submit">Salvar</Button>
+      <Button type="submit">
+        {onEdit ? "Atualizar" : "Salvar"}
+      </Button>
     </FormContainer>
   );
 };
